@@ -124,6 +124,8 @@
 					<script type="text-template">
 						- NIO
 							- NIO 개념, 구조(java nio(1.4), nio2(1.7))
+								- [Reactor pattern](https://en.wikipedia.org/wiki/Reactor_pattern)
+									- [참조 - Why non-blocking IO](http://kasunpanorama.blogspot.kr/2015/04/understanding-reactor-pattern-with-java.html)
 								- New IO, NonBlocking IO
 								- NIO buffer, channel, selector
 								- file vs path
@@ -134,15 +136,18 @@
 							- Servlet 개념 , [Servlet 3.1 Non-blocking I/O](https://blogs.oracle.com/arungupta/entry/non_blocking_i_o_using)
 							- Nonblocking Servlet : NETTY & jetty, undertow (Tomcat은??)
 							- Spring: DeferredResult
+
 					</script>
 				</section>
 				<section data-markdown>
 					<script type="text-template">
-						- Reactive Stream
 						- thank you Thread, Hello Event
-						- [Reactor pattern](https://en.wikipedia.org/wiki/Reactor_pattern)
-							- [참조 - Why non-blocking IO](http://kasunpanorama.blogspot.kr/2015/04/understanding-reactor-pattern-with-java.html)
-						- reactive stream
+						- EVENT-DRIVEN 프로그래밍
+							- 이미 익숙한 이벤트 기반 프로그램 - 엑셀
+							- observer pattern: 문제점(jdk deprecated)
+							- advanced observer [참조- Advanced Reactive java](http://akarnokd.blogspot.kr/)
+						- [ReactiveStreams](http://www.reactive-streams.org/), ReactiveExtension, JDK9: Flow, Spring: Project Reactor
+							- [reactive manifesto](http://www.reactivemanifesto.org/)
 						- 마무리
 					</script>
 				</section>
