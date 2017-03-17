@@ -1,8 +1,9 @@
 # 목차
 ## in the beginning was the bit.
 - 0, 1
-  - 컴퓨터는 무하한 0과 1의 반복
+  - 컴퓨터는 무한한 0과 1의 반복
 - 8 bit CPU
+  - 컴퓨터가 0과 1을 8bit씩 읽는다.
   - ALU register: 명령어(instruction) opcode(operation code)
     - 00000000 - NONE
     - 00000001 - MOV - 레지스터에 값을 할당   - 인자 1개만 원함.
