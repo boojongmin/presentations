@@ -15,6 +15,7 @@
         - 00000002 00000010 00000011
       - 5 * 7
         - 00000004 00000101 00000111
+  - [8bit emulator](https://boojongmin.github.io/assembler-simulator/index.html)
   - REGISTER - 계산한 값을 저장
     - 8bit momory
     - A, B, C, D
@@ -94,7 +95,6 @@
         POP A
       RET     
     ```  
-
     - 
 
 
