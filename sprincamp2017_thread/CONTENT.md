@@ -64,6 +64,58 @@
       MOV [A+5], 102
       MOV [A+6], 103
     ```
+    ```assembly
+      MOV A, 224
+      MOV [A], 17
+      INC A
+      MOV [A], 17
+      INC A
+      MOV [A], 17
+      INC A
+      MOV [A], 17
+      INC A
+      MOV [A], 17
+      INC A
+      MOV [A], 17
+      INC A
+      MOV [A], 17
+      INC A
+      MOV [A], 17
+      INC A
+      MOV A, 232
+      MOV [A], 97
+      INC A
+      MOV [A], 98
+      INC A
+      MOV [A], 99
+      INC A
+      MOV [A], 100
+      INC A
+      MOV [A], 101
+      INC A
+      MOV [A], 102
+      INC A
+      MOV [A], 103
+    ```
+    ```assembly
+      MOV A, 224
+      MOV B, 232
+      .loop1: 
+        MOV [A], 17
+        INC A
+        CMP A, B
+        JNZ .loop1
+      MOV A, 232
+      MOV B, 97
+      .loop2:
+        MOV [A], B
+        INC A
+        INC B
+        CMP B, 103
+        JNZ .loop2
+
+            HLT 
+    ```
   - HDD
     - program, process
     - 보조기억장치
