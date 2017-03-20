@@ -225,11 +225,17 @@
     ![](./images/hul.jpeg)
 
       - [참고 pthread 내용과 이미지가 좋음](https://computing.llnl.gov/tutorials/pthreads/)
+        - Data - 전역변수 - Compile Time에 결정됨.
+        - Heap - malloc으로 생성되는 영역(자바에서는 Object) - Run Time에 결정됨.
+        - Stack - local 변수 저장.
       - ![process](./images/process.png)
       - ![unix process](./images/process.gif)
       - ![threads within a unix process](./images/thread.gif)
         - NOTE 위의 이미지는 [NPTL - Native POSIX Thread Library
   ](https://en.wikipedia.org/wiki/Native_POSIX_Thread_Library)은 아님
+
+      - ![sharedMemoryModel](./images/sharedMemoryModel.gif)
+      - ![threadUnsafe](./images/threadUnsafe.gif)
     - stack based register
       - stack?
         - 자료구조
@@ -261,8 +267,6 @@
       file locks                      (-x) unlimited
       ```
 
-    - ![sharedMemoryModel](./images/sharedMemoryModel.gif)
-    - ![threadUnsafe](./images/threadUnsafe.gif)
 
 - 태스크
   - [process vs thread - 별차이없다 stackoverflow](http://stackoverflow.com/questions/807506/threads-vs-processes-in-linux)
@@ -351,12 +355,31 @@
   - 프로세스에서 동작 부분 - CPU와 연관
   - 리눅스에서는 task_struct 구조체 [task_struct 분석 블로그](http://blog.naver.com/PostView.nhn?blogId=stonewat&logNo=100064820579)
   - [kernel 2.0.40](http://lxr.free-electrons.com/source/include/linux/sched.h?v=2.0.40#L174)
+  - task state - 
   - (tss - Task State Segment) - [참고 why use software context switch in linux](http://stackoverflow.com/questions/2711044/why-doesnt-linux-use-the-hardware-context-switch-via-the-tss)
+  - [kernel - sched.h](http://lxr.free-electrons.com/source/include/linux/sched.h#L207)
+    ```
+      #define TASK_RUNNING            0
+      #define TASK_INTERRUPTIBLE      1
+      #define TASK_UNINTERRUPTIBLE    2
+      #define __TASK_STOPPED          4
+      #define __TASK_TRACED           8
+      /* in tsk->exit_state */
+      #define EXIT_DEAD               16
+      #define EXIT_ZOMBIE             32
+      #define EXIT_TRACE              (EXIT_ZOMBIE | EXIT_DEAD)
+      /* in tsk->state again */
+      #define TASK_DEAD               64
+      #define TASK_WAKEKILL           128
+      #define TASK_WAKING             256
+      #define TASK_PARKED             512
+      #define TASK_NOLOAD             1024
+      #define TASK_NEW                2048
+      #define TASK_STATE_MAX          4096
+    ```
+  - [kernel - task_struct](http://lxr.free-electrons.com/source/include/linux/sched.h#L1511)
   
-      [kernel 2.4.37 - tss_struct](http://lxr.free-electrons.com/source/include/asm-x86_64/processor.h?v=2.4.37#L288), 
-  
-     [kernel - 4.10 - x86_hw_tss ](http://lxr.free-electrons.com/source/arch/x86/include/asm/processor.h#L248)
-- 스케쥴
+  - PASS ===> 할 여력이 안됨 스케쥴
   - [참고 링크 - 프로세스 스케쥴러](http://egloos.zum.com/embedded21/v/1876951)
     - 최근 리눅스는 time slice를 써서 time interrup에 의존적이지 않다고함.
   - [참고 링크 - scheduler](http://tturbs.blogspot.kr/2014/10/4.html)
@@ -379,7 +402,283 @@
  - Context Switch
     - [context switch definition](http://www.linfo.org/context_switch.html)   
     - [context switch on x86](http://samwho.co.uk/blog/2013/06/01/context-switching-on-x86)
-  
+    - source 
+
+      [kernel 2.4.37 - tss_struct](http://lxr.free-electrons.com/source/include/asm-x86_64/processor.h?v=2.4.37#L288), 
+    
+      [kernel - 4.10 - x86_hw_tss ](http://lxr.free-electrons.com/source/arch/x86/include/asm/processor.h#L248)
+
+
+
+- 이제 JVM Thread 이야기 고고~
+  - [참고 - JVM internals](http://blog.jamesdbloom.com/JVMInternals.html#jvm_system_threads)
+  - JVM Internals
+    - ![](./images/JVM_Internal_Architecture.png)
+  - JVM Thread
+    - ~~PASS ==> 구분1~~
+      - ~~Green threads~~
+      - ~~Non Green threads~~
+    - Threads(Background, non-background)    
+      - System Thread
+        - VM thread
+        - Periodic task thread
+        - GC thread
+        - Compiler thread
+        - Signal dispatcher thread
+      - User Thread(main thread 부터 생성) <- 용어 체크
+        - Stack
+          - Frame
+            - Local variable array
+            - Return value
+            - Operand stack
+            - Reference to runtime constant pool for class of the current method
+  - Thread 예제 
+    - Thread 생성
+
+```java
+package examples.p01;
+
+public class SimpleThread {
+    public static void main(String[] args) throws InterruptedException {
+        String message = "Hello KSUG";
+        ThreadSample t1 = new ThreadSample(message);
+        t1.start();
+        t1.join();
+
+        Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("==============================");
+                System.out.println("message from Runnable: " + message);
+                System.out.println("==============================");
+
+                Thread t = Thread.currentThread();
+                long id = t.getId();
+                String name = t.getName();
+                int priority = t.getPriority();
+                Thread.State state = t.getState();
+                ThreadGroup threadGroup = t.getThreadGroup();
+                String groupName = threadGroup.getName();
+
+                System.out.println("id: " + id);
+                System.out.println("namd :" + name);
+                System.out.println("priority: " + priority);
+                System.out.println("state: " + state);
+                System.out.println("threadGroup.name : " + groupName);
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        t2.start();
+        t2.join();
+
+        System.out.println("exit main thread");
+    }
+
+}
+
+class ThreadSample extends Thread {
+
+    private String message;
+
+    public ThreadSample(String message) {
+        this.message = message;
+    }
+
+    @Override
+    public void run() {
+        System.out.println("==============================");
+        System.out.println("message from ThreadSample: " + message);
+        System.out.println("==============================");
+
+
+        Thread t = Thread.currentThread();
+        long id = t.getId();
+        String name = t.getName();
+        int priority = t.getPriority();
+        Thread.State state = t.getState();
+        ThreadGroup threadGroup = t.getThreadGroup();
+        String groupName = threadGroup.getName();
+
+        System.out.println("id: " + id);
+        System.out.println("namd :" + name);
+        System.out.println("priority: " + priority);
+        System.out.println("state: " + state);
+        System.out.println("threadGroup.name : " + groupName);
+
+
+        try {
+
+            Thread.sleep(1000);
+            System.out.println("exit ThreadSample thread");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+```
+
+  - Thread를 무제한적으로 생성하면 안되는 이유
+    - thread 생성 자체가 비용이 큼
+    - memory 공간 - stack
+    - GC
+    - 해결법
+      - ThreadPool
+        - 한번 만든 쓰레드는 재사용!!
+```
+package examples.p02;
+
+import java.util.*;
+import java.util.concurrent.*;
+
+public class ThreadPoolExample {
+
+    public static void main(String[] args) throws InterruptedException {
+        SimpleThreadPool pool = new SimpleThreadPool(3);
+
+        while(true) {
+            pool.submit(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("--> " + Thread.currentThread().getName() + " Hello KSUG");
+                }
+            });
+
+            Thread.sleep(1000);
+        }
+    }
+
+}
+
+class SimpleThreadPool {
+    private int threadLimit;
+//    Queue<Runnable> workQueue = new ConcurrentLinkedQueue<>();
+    Queue<Runnable> workQueue = new LinkedList<>();
+
+    public SimpleThreadPool(int threadLimit) {
+        this.threadLimit = threadLimit;
+        for(int i=0; i< threadLimit; i++) {
+            new WorkThread(this.workQueue).start();
+        }
+    }
+
+    public void submit(Runnable r) {
+        this.workQueue.add(r);
+    }
+
+}
+
+class WorkThread extends Thread {
+    Queue<Runnable> workQueue;
+
+    public WorkThread(Queue<Runnable> workQueue) {
+        this.workQueue = workQueue;
+    }
+
+    @Override
+    public void run() {
+        while(true) {
+            synchronized (workQueue) {
+                if(!workQueue.isEmpty()) {
+                    Runnable r = workQueue.poll();
+                    // NPE 발생해서 위에서 synchronized 추가
+                    r.run();
+                }
+            }
+
+        }
+    }
+}
+```        
+  - 기존의 threadpool은 반복문에서 cpu자원을 너무 많이 사용함.
+  - wait, notify, notifyAll을 사용
+```
+package examples.p03;
+
+import java.util.*;
+import java.util.concurrent.*;
+
+public class ThreadPoolUpgradeExample {
+
+    public static void main(String[] args) throws InterruptedException {
+        SimpleThreadPool pool = new SimpleThreadPool(3);
+
+        while(true) {
+            pool.submit(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("--> " + Thread.currentThread().getName() + " Hello KSUG");
+                }
+            });
+
+            Thread.sleep(1000);
+        }
+    }
+
+}
+
+class SimpleThreadPool {
+    private int threadLimit;
+
+    Object notifier = new Object();
+//    Queue<Runnable> workQueue = new ConcurrentLinkedQueue<>();
+    Queue<Runnable> workQueue = new LinkedList<>();
+
+    public SimpleThreadPool(int threadLimit) {
+        this.threadLimit = threadLimit;
+        for(int i=0; i < threadLimit; i++) {
+             new WorkThread(this.workQueue, notifier).start();
+        }
+    }
+
+    public void submit(Runnable r) {
+        this.workQueue.add(r);
+
+        //java.lang.IllegalMonitorStateException
+        synchronized( notifier ) {
+            notifier.notify();
+        }
+    }
+
+}
+
+class WorkThread extends Thread {
+    Queue<Runnable> workQueue;
+    Object notifier;
+
+    public WorkThread(Queue<Runnable> workQueue, Object notifier) {
+        this.workQueue = workQueue;
+        this.notifier = notifier;
+    }
+
+    @Override
+    public void run() {
+        while(true) {
+            if(!workQueue.isEmpty()) {
+                Runnable r = workQueue.poll();
+                r.run();
+            } else {
+                try {
+                    synchronized (notifier){
+                        notifier.wait();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+```
+
+
+
 
 
 

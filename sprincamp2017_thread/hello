@@ -1,0 +1,44 @@
+@startuml
+left to right direction
+
+interface Runnable {
+  run()
+}
+
+class ThreadSample {
+  +ThreadSample(String msg)
+  +run()
+}
+
+class Thread {
+  - deamon: boolean
+  - target: Runnable
+  - priority: int
+  - group: ThreadGroup
+  - tid: long
+  - stackSize: long
+  - threadStatus: int
+
+  - {static} registerNatives()
+  + run()
+  + start()
+  + join()
+  + exit()
+  + setDeamon()
+  + getId()
+  + getState(): State
+}
+
+enum State {
+  NEW
+  RUNNABLE
+  BLOCKED
+  WAITING
+  TIMED_WAITING
+  TERMINATED
+}
+
+Thread *-- Runnable
+ThreadSample <-- Thread
+
+@enduml
