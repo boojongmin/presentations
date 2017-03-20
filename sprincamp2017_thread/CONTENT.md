@@ -45,7 +45,7 @@
               int a = b;
               int b = tmp;
             ```
-  - IP register <= 요놈 때문에 cpu 설명 
+  - IP register <= 요놈 때문에 cpu 설명  - intel용어 일반적으로 PC register
     - 현재 명령어가 실행되고 있는 메모리의 번지의 값을 저장.
     - (에뮬레이터를 보여주면서 IP register와 instruction block을 설명.)
     - [8bit emulator](https://boojongmin.github.io/assembler-simulator/index.html)
@@ -142,7 +142,7 @@
     ```assembly
         JMP start
       hello: 
-        DB "KSUG"
+        DB "HELLO KSUG"
         DB 0	
       start:
         MOV A, 1           
@@ -223,8 +223,21 @@
     cat a.asm
     ```
     ![](./images/hul.jpeg)
-    
+
+      - [참고 pthread 내용과 이미지가 좋음](https://computing.llnl.gov/tutorials/pthreads/)
+      - ![process](./images/process.png)
+      - ![unix process](./images/process.gif)
+      - ![threads within a unix process](./images/thread.gif)
+        - NOTE 위의 이미지는 [NPTL - Native POSIX Thread Library
+  ](https://en.wikipedia.org/wiki/Native_POSIX_Thread_Library)은 아님
     - stack based register
+      - stack?
+        - 자료구조
+          - In computer science, a data structure is a particular way of organizing data in a computer so that it can be used efficiently
+        - bottom에서 top으로 증가 - 저장할때는 push, 사용할때는 pop
+      - [call stack](https://en.wikipedia.org/wiki/Call_stack#Call_site_processing)
+        - In computer science, a call stack is a stack data structure that stores information about the active subroutines of a computer program.
+
     - stack size
       ```shell
       # ulimit
@@ -248,19 +261,8 @@
       file locks                      (-x) unlimited
       ```
 
-
-
-
-    - [참고 pthread 내용과 이미지가 좋음](https://computing.llnl.gov/tutorials/pthreads/)
-    - ![unix process](./images/process.gif)
-    - ![threads within a unix process](./images/thread.gif)
-      - NOTE 위의 이미지는 [NPTL - Native POSIX Thread Library
-](https://en.wikipedia.org/wiki/Native_POSIX_Thread_Library)은 아님
     - ![sharedMemoryModel](./images/sharedMemoryModel.gif)
     - ![threadUnsafe](./images/threadUnsafe.gif)
-
-
-
 
 - 태스크
   - [process vs thread - 별차이없다 stackoverflow](http://stackoverflow.com/questions/807506/threads-vs-processes-in-linux)
