@@ -48,118 +48,274 @@
 						<span style="color:yellow;">부종민</span>
 					</script>
 				</section>
-				<section data-markdown>
+				<section data-transition="none" data-transition-speed="fast" data-markdown>
 					<script type="text-template">
-						### 목차 - 1
-						- ~~고수는 왜?~~
-						- 컴퓨터 흐름
-							- INTEL 8080(8bit), 486DX2(x86),
-								Pentium4(hyperthread - 2002, x64 - 2004)
-								- DOS 시절 UX vs GUI UX
-							- CPU, 캐시, 주기억장치, 보조기억장치
-						- process와 thread
-							- concurrent vs parallel
-						- [8bit simulator](https://schweigi.github.io/assembler-simulator/)
+						![](./images/Intel-8008_1.jpg)
 					</script>
 				</section>
-				<section data-markdown>
+				<section data-transition="none" data-transition-speed="fast" data-markdown>
 					<script type="text-template">
-						### 목차 - 2
-						- LINUX
-							- program, elf, memory, level(user,kernel)
-							- process, thread, task, task state, sheduler
-								- 왜 Thread.sleep은 정확하지 않을까?
-							- thread를 light weight process라 부르는 이유(stack)
-							- 컨텍스트 스위치 비용이 왜 발생할까?
-							- 용어
-								- 원자적 <br />
-									- i++ => assemby
-								- blocking vs spinning ~~(CAS)~~
+						![](./images/pics-die-block-diagram-600x343.png)					
 					</script>
 				</section>
-				<section data-markdown>
+				<!--<section  data-transition="slide-in fade-out" data-transition-speed="fast" data-markdown>
 					<script type="text-template">
-						### 목차 - 3
-						- JAVA
-							- jvm 동작, 메모리 구조
-								- system & user thread
-							- ~~green thread and non green thread~~
-							- 쓰레드 구조
-							- thread with simple example
-						- Thread in Action(1)
-							- Runable, Thread(Command Pattern)
-								- ~~디자인패턴구분 - creational, structural, behavioral, concurrency~~
-								- 쓰레드 생성 과정(jvm 이미지)
-								- join
+						### CPU
+						![](./images/Intel_8008_arch.svg.png)
 					</script>
-			  </section>
-				<section data-markdown>
+				</section>-->
+				<section  data-transition="none" data-markdown>
 					<script type="text-template">
-						- Thread in Action(2)
-							- Object - wait, notify, notifyall and synchonized
-							- Future - ticket이 도작하면 값을 사용하세요
-							- ListenableFuture - callback, [callback hell](http://i.imgur.com/BtjZedW.jpg)
-							- CompletableFuture - promise
-							- ThreadPool
-								- 쓰레드를 재사용하는 이유
-								- 구현 방식
-								- ThreadPool 종류
-									- fixed
-									- newCached
-									- forkjoin
-							- ~~AtomicTypes, ThreadSafe Collections~~
+						### CPU
+						![](./images/425056-intel-core-i7.jpg)
+					</script>
+				</section>
+				<section data-transition="none" data-markdown>
+						<script type="text-template">
+						### CPU
+						![](./images/die-callout.jpg)
+					</script>
+				</section>
+				<section data-transition="none" data-markdown>
+						<script type="text-template">
+							#### 태초에 비트가 계시니라.
+							#### in the beginning was the bit.
+							![](./images/binary.jpeg)
+					</script>
+				</section>
+				<section data-transition="none" data-markdown>
+						<script type="text-template">
+							### ALU
+							<p class="fragment">- b00000001 == 1 : ADD</p>
+							<p class="fragment">- b00000010 == 2 : SUB</p>
+							<p class="fragment">- b00000011 == 3 : MUL</p>
+							<p class="fragment">- b00000100 == 4 : DIV</p>	
+							<table class="fragment">
+								<tr>
+									<th>Opcode</th>
+									<th>Operand</th>
+									<th>Operand</th>
+								</tr>
+								<tr>
+									<td>00000100</td>
+									<td>00000000</td>
+									<td>00000000</td>
+								</tr>
+							</table>
+							<hr class="fragment">
+							<p class="fragment">							
+							2 + 3
+							</p>
+							<p class="fragment"> 00000001 00000010 00000011</p>
+							<p class="fragment">
+							1 2 3
+							</p>
+							<hr class="fragment">
+							<p class="fragment">5 * 7 </p>
+							<p class="fragment"> 00000011 00000101 00000111</p>
+							<p class="fragment">3 5 7 </p>
 						</script>
-			  </section>
-				<section data-markdown>
-					<script type="text-template">
-						- Thread in Action(3)
-							- Thread를 사용하면 항상 빠를까?
-								- example: i의 값이 1씩 증가되면서 100000000이 될 때까지<br />
-								  1개 thread vs 8개 thread
-							- ThreadPool을 쓰면서 겪게되는 문제점.
-								- 1초씩 걸리는 request, 100번 동시 request, 10개의 톰캣 쓰레드풀로 처리
-					</script>
+				</section>
+				<section data-transition="none" data-markdown>
+#### REGISTER
+* DATA 
+	 * number 값 
+	 * 주소값
+* SP
+  * stack pointer
+* IP
+  * instruction pointer
+* FLAGS
+  * zero 
+		* ex: CMP A, B
+  * carry
 				</section>
 				<section data-markdown>
-					<script type="text-template">
-						- NIO
-							- NIO 개념, 구조(java nio(1.4), nio2(1.7))
-								- [Reactor pattern](https://en.wikipedia.org/wiki/Reactor_pattern)
-									- [참조 - Why non-blocking IO](http://kasunpanorama.blogspot.kr/2015/04/understanding-reactor-pattern-with-java.html)
-								- New IO, NonBlocking IO
-								- NIO buffer, channel, selector
-								- file vs path
-								- socket vs channel
-							- NIO simple example
-							- thread pool vs NIO 성능 비교
-							- c10k(thread memory...)
-							- Servlet 개념 , [Servlet 3.1 Non-blocking I/O](https://blogs.oracle.com/arungupta/entry/non_blocking_i_o_using)
-							- Nonblocking Servlet : NETTY & jetty, undertow (Tomcat은??)
-							- Spring: DeferredResult
+					![](./images/johnvon.jpg)
+				</section>
+				<section data-markdown>
+						![](./images/cpu_block.png)					
+				</section>
+				<section data-transition="none" data-markdown  data-background-color="#FFF">
+					[8bit simulator](https://boojongmin.github.io/assembler-simulator/index.html)
+				</section>
+				<section data-markdown data-transition="none">
+```
+      MOV [224], 17
+      MOV [225], 17
+      MOV [226], 17
+      MOV [227], 17
+      MOV [228], 17
+      MOV [229], 17
+      MOV [230], 17
+      MOV [231], 17
+      MOV [232], 65
+      MOV A, 232
+      MOV [A], 97
+      MOV [A+1], 98
+      MOV [A+2], 99
+      MOV [A+3], 100
+      MOV [A+4], 101
+      MOV [A+5], 102
+      MOV [A+6], 103
+```				
+				</section>
+				<section data-markdown data-transition="none">
+```
+      MOV A, 224
+      MOV [A], 17
+      INC A
+      MOV [A], 17
+      INC A
+      MOV [A], 17
+      INC A
+      MOV [A], 17
+      INC A
+      MOV [A], 17
+      INC A
+      MOV [A], 17
+      INC A
+      MOV [A], 17
+      INC A
+      MOV [A], 17
+      INC A
+      MOV A, 232
+      MOV [A], 97
+      INC A
+      MOV [A], 98
+      INC A
+      MOV [A], 99
+      INC A
+      MOV [A], 100
+      INC A
+      MOV [A], 101
+      INC A
+      MOV [A], 102
+      INC A
+      MOV [A], 103
+```
+				</section>
+				<section data-markdown data-transition="none">
+```
+        MOV A, 224
+        MOV B, 232
 
-					</script>
+      .loop1: 
+        MOV [A], 17
+        INC A
+        CMP A, B
+        JNZ .loop1
+
+        MOV B, 97	; ASCII 'a'
+
+      .loop2:
+        MOV [A], B
+        INC A
+        INC B
+        CMP B, 103
+        JNZ .loop2
+
+				HLT
+```
+				</section>
+				<section data-markdown data-transition="none">
+```
+    JMP start
+  hello: 
+    DB "HELLO KSUG"
+    DB 0			
+
+  start:
+    MOV A, 1           
+    MOV B, 2	
+    ADD B, A
+    MOV C, hello
+    MOV D, 232
+    CALL print   ;  CALL -> STACK
+    HLT    ; Halt  
+
+  print:
+    PUSH A
+    PUSH B
+    MOV B, 0
+
+  .loop:
+    MOV A, [C]
+    MOV [D], A
+    INC C
+    INC D
+    CMP B, [C]
+    JNZ .loop 
+
+    POP B
+    POP A
+    RET     
+```				
 				</section>
 				<section data-markdown>
+					![](./images/CPU_RAM.png)
+				</section>
+				<section data-markdown>
+					![](./images/process_without_os.jpg)
+				</section>
+				<section data-markdown>
+## OS
+ - 싱글태스킹 vs 멀티태스킹
+				</section>
+				<section data-markdown data-transition="none">
+![](./images/msdos.gif)
+				</section>
+				<section data-markdown data-transition="none">
+![](./images/mdir.gif)
+
+(COPY -> STOP THE WORLD)
+				</section>
+				<section data-markdown data-transition="none">
+### PC - Personal Computer
+  - SingleCore 
+	- 파일을 실행하면 dos는 프로그램이 종료될 때까지 주도권을 잃음.
+				</section>
+				<section data-markdown>
+## LINUX
+![](./images/Linux.png)
+  - SC(-_-;;) - Server Computer
+	- task 관리
+				</section>
+
+				<section data-markdown>
 					<script type="text-template">
-						- thank you Thread, Hello Event
-						- EVENT-DRIVEN 프로그래밍
-							- 이미 익숙한 이벤트 기반 프로그램 - 엑셀
-							- observer pattern: 문제점(jdk deprecated)
-							- advanced observer [참조- Advanced Reactive java](http://akarnokd.blogspot.kr/)
-						- [ReactiveStreams](http://www.reactive-streams.org/), ReactiveExtension, JDK9: [Flow](http://download.java.net/java/jdk9/docs/api/java/util/concurrent/Flow.html), Spring: [Project Reactor](https://projectreactor.io/)
-							- [reactive manifesto](http://www.reactivemanifesto.org/)
-							- [Reactive Programming with JDK 9 Flow API](https://community.oracle.com/docs/DOC-1006738)
-						- 마무리
+## LINUX
+ - SingleCore
+  - 병행성 
+  - scheduler가 태스크 switch
+<p class="fragment">![](./images/interlacedscan.jpg)</p>
 					</script>
 				</section>
+
+				<section data-markdown>
+## LINUX
+  - MultiCore
+    - 병렬성(Parallel)
+    - 물리적으로 다른 CPU마다 task를 실행
+				</section>
+
+				<section data-markdown>
+					![](./images/process_without_os.jpg)
+					![](./images/process_struct.jpg)
+				</section>
+
+				<section data-markdown>
+					![](./images/process_struct.jpg)
+				</section>
+
 
 				<style>
-.reveal pre code {
-// 	// font-size: 15px;
-// 	// letter-spacing: -2px;
-	max-height: 1000px;
-// 	// line-height: 2;
-}
+/*.reveal pre code {
+ font-size: 15px;
+ letter-spacing: -2px;
+ max-height: 1000px;
+ line-height: 2;
+}*/
 				</style>
 				<section>
 					<h3> 코드 샘플 테스트 - single thread vs multi thread</h3>
