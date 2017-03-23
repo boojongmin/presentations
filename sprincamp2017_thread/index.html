@@ -28,6 +28,11 @@
 			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
+		<style>
+.yellofont {
+	color: yello;
+}
+		</style>
 
 		<!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
@@ -47,6 +52,12 @@
 						<br />
 						<span style="color:yellow;">부종민</span>
 					</script>
+				</section>
+				<section data-transition="none">
+						<img class="fragment" src="./images/mainboard_amd754.jpg" style="width:500px;height:500px;"/>
+						<img class="fragment" src="./images/i7cpu.jpeg" style="width:200px;height:200px;"/>
+						<img class="fragment" src="./images/ram.jpg" style="width:200px;height:200px;"/>
+						<img class="fragment" src="./images/hdd.jpeg" style="width:200px;height:200px;"/>
 				</section>
 				<section data-transition="none" data-transition-speed="fast" data-markdown>
 					<script type="text-template">
@@ -78,18 +89,21 @@
 				</section>
 				<section data-transition="none" data-markdown>
 						<script type="text-template">
-							#### 태초에 비트가 계시니라.
-							#### in the beginning was the bit.
+							#### 0,1
 							![](./images/binary.jpeg)
+							
+							- b00000000 - 2  - binary
+							- 0         - 10 - decimal
+							- 0x0       - 16 - hex
 					</script>
 				</section>
 				<section data-transition="none" data-markdown>
 						<script type="text-template">
-							### ALU
-							<p class="fragment">- b00000001 == 1 : ADD</p>
-							<p class="fragment">- b00000010 == 2 : SUB</p>
-							<p class="fragment">- b00000011 == 3 : MUL</p>
-							<p class="fragment">- b00000100 == 4 : DIV</p>	
+							#### INSTRUCTION
+							<p class="fragment">- 00000001 : ADD</p>
+							<p class="fragment">- 00000010 : SUB ...</p>
+							<hr class="fragment">
+							<p class="fragment">- 중위 (2 + 3)    ------->     전치 (<font style="color:yellow;">+</font> 2 3) </p>
 							<table class="fragment">
 								<tr>
 									<th>Opcode</th>
@@ -97,48 +111,66 @@
 									<th>Operand</th>
 								</tr>
 								<tr>
-									<td>00000100</td>
-									<td>00000000</td>
-									<td>00000000</td>
+									<td style="color:yellow;">00000001</td>
+									<td>00000010</td>
+									<td>00000011</td>
 								</tr>
 							</table>
 							<hr class="fragment">
 							<p class="fragment">							
-							2 + 3
+							5 - 3  --> (- 5 3)
 							</p>
-							<p class="fragment"> 00000001 00000010 00000011</p>
-							<p class="fragment">
-							1 2 3
-							</p>
-							<hr class="fragment">
-							<p class="fragment">5 * 7 </p>
-							<p class="fragment"> 00000011 00000101 00000111</p>
-							<p class="fragment">3 5 7 </p>
+							<p class="fragment">00000010 00000101 00000011</p>
+							<p class="fragment" style="color:yellow;">00000010</p>
 						</script>
 				</section>
 				<section data-transition="none" data-markdown>
 #### REGISTER
 * DATA 
-	 * number 값 
-	 * 주소값
 * SP
   * stack pointer
-* IP
-  * instruction pointer
+* IP(PC)
+  * instruction pointer, program counter
+<!--
 * FLAGS
   * zero 
-		* ex: CMP A, B
   * carry
+-->	
 				</section>
+<!--				
 				<section data-markdown>
 					![](./images/johnvon.jpg)
 				</section>
+-->				
 				<section data-markdown>
 						![](./images/cpu_block.png)					
 				</section>
 				<section data-transition="none" data-markdown  data-background-color="#FFF">
+					#### RAM
+				</section>
+				<section data-transition="none" data-markdown  data-background-color="#FFF">
+					### RAM
+					![](./images/ram.jpg)
+				</section>
+
+				<section data-transition="none" data-markdown  data-background-color="#FFF">
+					### RAM
+					![](./images/x86_realmode_mm.png)
+				</section>
+				<section data-transition="none" data-markdown  data-background-color="#FFF">
+					### RAM
+					![](./images/i7core.jpg)
+				</section>
+
+				<section data-transition="none" data-markdown  data-background-color="#FFF">
+					### RAM
+					![](./images/Intel-HD-Graphics-Dedicated-compressor.jpg)
+				</section>
+				<section data-transition="none" data-markdown  data-background-color="#FFF">
+					### 8bit 동작 방식 확인
 					[8bit simulator](https://boojongmin.github.io/assembler-simulator/index.html)
 				</section>
+<!--				
 				<section data-markdown data-transition="none">
 ```
       MOV [224], 17
@@ -218,6 +250,7 @@
 				HLT
 ```
 				</section>
+-->				
 				<section data-markdown data-transition="none">
 ```
     JMP start
@@ -262,53 +295,74 @@
 ## OS
  - 싱글태스킹 vs 멀티태스킹
 				</section>
+		<section data-markdown data-transition="none">
+### PC - Personal Computer
+  - SingleCore 
+
+  ![](./images/persia.jpg)
+				</section>
 				<section data-markdown data-transition="none">
 ![](./images/msdos.gif)
 				</section>
-				<section data-markdown data-transition="none">
-![](./images/mdir.gif)
+				<section  data-transition="none">
+					<img src="./images/mdir.png" />
+				</section>
+				<section data-transition="none">
+					<img src="./images/mdir2.png" />
+				</section>
 
-(COPY -> STOP THE WORLD)
-				</section>
-				<section data-markdown data-transition="none">
-### PC - Personal Computer
-  - SingleCore 
-	- 파일을 실행하면 dos는 프로그램이 종료될 때까지 주도권을 잃음.
-				</section>
 				<section data-markdown>
 ## LINUX
 ![](./images/Linux.png)
-  - SC(-_-;;) - Server Computer
-	- task 관리
+  - Server Computer
+  - task
 				</section>
 
 				<section data-markdown>
 					<script type="text-template">
 ## LINUX
- - SingleCore
-  - 병행성 
-  - scheduler가 태스크 switch
-<p class="fragment">![](./images/interlacedscan.jpg)</p>
-					</script>
-				</section>
-
-				<section data-markdown>
-## LINUX
+  - SingleCore
+    - 병행성 
+    - scheduler가 태스크 switch
   - MultiCore
     - 병렬성(Parallel)
     - 물리적으로 다른 CPU마다 task를 실행
+					</script>
+				</section>
+				<section>
+					<h2>병행성(Concurrency)</h2>
+					<img class="fragment" src="./images/tv1.jpg" />
+					<img class="fragment" src="./images/interlacedscan.jpg" />
+				</section>
+				<section>
+					<h2>병렬성(Parallel)</h2>
+					<img class="fragment" src="./images/monitor-computer-tv.jpg" />
+				</section>
+				<section data-markdown data-transition="fade-in none">
+					![](./images/task_concurrent1.jpg)
+				</section>
+				<section data-markdown data-transition="none">
+					![](./images/task_concurrent2.jpg)
+				</section>
+				<section data-markdown data-transition="none">
+					![](./images/task_concurrent3.jpg)
 				</section>
 
+
+				<section data-markdown>
+					![](./images/process_struct.jpg)
+				</section>
+<!--				
 				<section data-markdown>
 					![](./images/process_without_os.jpg)
-					![](./images/process_struct.jpg)
 				</section>
-
 				<section data-markdown>
 					![](./images/process_struct.jpg)
 				</section>
-
-
+				-->
+				<section>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="221px" preserveAspectRatio="none" style="width:270px;height:221px;" version="1.1" viewBox="0 0 270 221" width="270px" zoomAndPan="magnify"><defs><filter height="300%" id="fi3lhyb" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--class Client--><rect fill="#FEFECE" filter="url(#fi3lhyb)" height="60.9551" style="stroke: #A80036; stroke-width: 1.5;" width="109" x="6" y="152"/><ellipse cx="41.25" cy="168" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M44.2231,173.6431 Q43.6421,173.9419 43.0029,174.0913 Q42.3638,174.2407 41.6582,174.2407 Q39.1514,174.2407 37.8315,172.5889 Q36.5117,170.937 36.5117,167.8159 Q36.5117,164.6865 37.8315,163.0347 Q39.1514,161.3828 41.6582,161.3828 Q42.3638,161.3828 43.0112,161.5322 Q43.6587,161.6816 44.2231,161.9805 L44.2231,164.7031 Q43.5923,164.1221 42.9988,163.8523 Q42.4053,163.5825 41.7744,163.5825 Q40.4297,163.5825 39.7449,164.6492 Q39.0601,165.7158 39.0601,167.8159 Q39.0601,169.9077 39.7449,170.9744 Q40.4297,172.041 41.7744,172.041 Q42.4053,172.041 42.9988,171.7712 Q43.5923,171.5015 44.2231,170.9204 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="32" x="59.75" y="172.5352">Client</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="7" x2="114" y1="184" y2="184"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="97" x="12" y="198.6348">stragegy: Strategy</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="7" x2="114" y1="204.9551" y2="204.9551"/><!--class Strategy--><rect fill="#FEFECE" filter="url(#fi3lhyb)" height="60.9551" style="stroke: #A80036; stroke-width: 1.5;" width="86" x="17.5" y="56"/><ellipse cx="36.1" cy="72" fill="#B4A7E5" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M32.0277,67.7651 L32.0277,65.6069 L39.4071,65.6069 L39.4071,67.7651 L36.9418,67.7651 L36.9418,75.8418 L39.4071,75.8418 L39.4071,78 L32.0277,78 L32.0277,75.8418 L34.4931,75.8418 L34.4931,67.7651 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="46" x="50.9" y="76.5352">Strategy</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="18.5" x2="102.5" y1="88" y2="88"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="18.5" x2="102.5" y1="96" y2="96"/><ellipse cx="28.5" cy="107.9775" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="60" x="37.5" y="110.6348">algorithm()</text><!--class AStrategy--><rect fill="#FEFECE" filter="url(#fi3lhyb)" height="60.9551" style="stroke: #A80036; stroke-width: 1.5;" width="86" x="175" y="8"/><ellipse cx="190" cy="24" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M192.9731,29.6431 Q192.3921,29.9419 191.7529,30.0913 Q191.1138,30.2407 190.4082,30.2407 Q187.9014,30.2407 186.5815,28.5889 Q185.2617,26.937 185.2617,23.8159 Q185.2617,20.6865 186.5815,19.0347 Q187.9014,17.3828 190.4082,17.3828 Q191.1138,17.3828 191.7612,17.5322 Q192.4087,17.6816 192.9731,17.9805 L192.9731,20.7031 Q192.3423,20.1221 191.7488,19.8523 Q191.1553,19.5825 190.5244,19.5825 Q189.1797,19.5825 188.4949,20.6492 Q187.8101,21.7158 187.8101,23.8159 Q187.8101,25.9077 188.4949,26.9744 Q189.1797,28.041 190.5244,28.041 Q191.1553,28.041 191.7488,27.7712 Q192.3423,27.5015 192.9731,26.9204 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="54" x="204" y="28.5352">AStrategy</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="176" x2="260" y1="40" y2="40"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="176" x2="260" y1="48" y2="48"/><ellipse cx="186" cy="59.9775" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="60" x="195" y="62.6348">algorithm()</text><!--class BStrategy--><rect fill="#FEFECE" filter="url(#fi3lhyb)" height="60.9551" style="stroke: #A80036; stroke-width: 1.5;" width="86" x="175" y="104"/><ellipse cx="190.45" cy="120" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M193.4231,125.6431 Q192.8421,125.9419 192.2029,126.0913 Q191.5638,126.2407 190.8582,126.2407 Q188.3514,126.2407 187.0315,124.5889 Q185.7117,122.937 185.7117,119.8159 Q185.7117,116.6865 187.0315,115.0347 Q188.3514,113.3828 190.8582,113.3828 Q191.5638,113.3828 192.2112,113.5322 Q192.8587,113.6816 193.4231,113.9805 L193.4231,116.7031 Q192.7923,116.1221 192.1988,115.8523 Q191.6053,115.5825 190.9744,115.5825 Q189.6297,115.5825 188.9449,116.6492 Q188.2601,117.7158 188.2601,119.8159 Q188.2601,121.9077 188.9449,122.9744 Q189.6297,124.041 190.9744,124.041 Q191.6053,124.041 192.1988,123.7712 Q192.7923,123.5015 193.4231,122.9204 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="53" x="204.55" y="124.5352">BStrategy</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="176" x2="260" y1="136" y2="136"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="176" x2="260" y1="144" y2="144"/><ellipse cx="186" cy="155.9775" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="60" x="195" y="158.6348">algorithm()</text><path d="M103.5376,73.3838 C119.5317,68.5094 138.0193,62.8751 155.4084,57.5755 " fill="none" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="none" points="153.5691,50.8183,174.7411,51.6837,157.6505,64.2102,153.5691,50.8183" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M103.5376,99.6162 C119.5317,104.4906 138.0193,110.1249 155.4084,115.4245 " fill="none" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="none" points="157.6505,108.7898,174.7411,121.3163,153.5691,122.1817,157.6505,108.7898" style="stroke: #A80036; stroke-width: 1.0;"/></g></svg>
+				</section>
 				<style>
 /*.reveal pre code {
  font-size: 15px;
