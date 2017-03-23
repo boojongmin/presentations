@@ -3,7 +3,7 @@
   - [스택머신](https://users.ece.cmu.edu/~koopman/stack_computers/sec3_2.html)
   - [von neumann architecture](https://www.computerscience.gcse.guru/theory/von-neumann-architecture)
   - [nice and simple x86 opcode table [pdf]](http://rebrn.com/re/nice-and-simple-x-opcode-table-pdf-1574910/)
-
+  - [cpu clock rate increase](http://5gnews.org/critique-pure-speed/)
 # 목차
 ## in the beginning was the bit.
 - 0, 1
