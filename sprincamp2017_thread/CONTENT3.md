@@ -689,3 +689,4 @@ public class CompletableFutureExample {
 참고 URL
 - [jvm internal](http://www.artima.com/insidejvm/ed2/jvm2.html)
 - [Chapter 6. I/O Multiplexing: The select and poll Functions¶ ](https://notes.shichao.io/unp/ch6/)
+- [jvm default setting memory size](https://www.ibm.com/support/knowledgecenter/SSYKE2_7.1.0/com.ibm.java.lnx.71.doc/diag/appendixes/defaults.html)
