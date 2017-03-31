@@ -152,7 +152,6 @@ process는 thread를 가질수 있고 thread == task
   - read -> running -> blocked(io 시작) -> (io완료 시그널)waiting -> running -> terminated
     <!--- ![](https://notes.shichao.io/unp/figure_6.1.png)-->
   <!--- ![](https://image.slidesharecdn.com/scheduler-110320013202-phpapp01/95/linux-o1-scheduling-2-728.jpg?cb=1300584946)-->
-  - ![]()
 
 - task schduler
  - [참조 url](http://www.informit.com/articles/article.aspx?p=370047)
