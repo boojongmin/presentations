@@ -262,7 +262,7 @@
       pipe size            (512 bytes, -p) 8
       POSIX message queues     (bytes, -q) 819200
       real-time priority              (-r) 0
-      -> stack size              (kbytes, -s) 8192
+      stack size              (kbytes, -s) 8192
       cpu time               (seconds, -t) unlimited
       max user processes              (-u) unlimited
       virtual memory          (kbytes, -v) unlimited
@@ -270,6 +270,7 @@
       ```
 
 
+- 프로세스와 스레드 http://palpit.tistory.com/614
 - 태스크
   - [process vs thread - 별차이없다 stackoverflow](http://stackoverflow.com/questions/807506/threads-vs-processes-in-linux)
 
