@@ -4,22 +4,23 @@
 
 ### 목차 
 
-- jvm thread 들어가기 앞서...
+- JVM은 쓰레드를 직접 만들어 사용하지 않습니다.
   - [green threads](https://en.wikipedia.org/wiki/Green_threads)
   - native thread를 사용하기 때문에 java의 thread를 살펴보기전에 Linux를 기준으로 OS native thread를 살펴보자.
-
-- elf(Executable and Linkable Format)
-  - 궁금했다. 하드에 있는 파일은 어떻게 실행되는 것일까? 
-  - [elf 설명](http://recipes.egloos.com/5011946)
-  - ![](https://image.freepik.com/free-icon/elf-file-format-symbol_318-45352.jpg)
-  - 
+- 프로그램
+  - elf(Executable and Linkable Format)
+    - 궁금했다. 하드에 있는 파일은 어떻게 실행되는 것일까? 
+    - [elf 설명](http://recipes.egloos.com/5011946)
+    - ![](https://image.freepik.com/free-icon/elf-file-format-symbol_318-45352.jpg)
+<!--    -
 ```shell
-docker ps --all
-docker start 1a88797ebf83
-docker attach 1a88797ebf83
-cd /root
-vi a.c
+  docker ps --all
+  docker start 1a88797ebf83
+  docker attach 1a88797ebf83
+  cd /root
+  vi a.c
 ```
+-->
 
 ```c
 #include <stdio.h>
@@ -29,15 +30,31 @@ int main() {
   return 0;
 }
 ```
-
+<!--
 ```shell
 gcc -o a.o a.c
 readelf -S a.o
 vi a.o
 :%!xxd to switch into hex mode
 :%!xxd -r to exit from hex mode
-
 ```
+-->
+```shell
+# gcc -o a.o a.c
+# readelf -S a.o
+
+Section Headers:
+  [Nr] Name              Type             Address           Offset
+       Size              EntSize          Flags  Link  Info  Align
+  [13] .text             PROGBITS         0000000000400490  00000490
+       0000000000000242  0000000000000000  AX       0     0     16
+  [15] .rodata           PROGBITS         00000000004006e0  000006e0
+       0000000000000025  0000000000000000   A       0     0     4
+  [24] .data             PROGBITS         0000000000601038  00001038
+       0000000000000010  0000000000000000  WA       0     0     8
+  [25] .bss              NOBITS           0000000000601048  00001048
+```
+
 - process 
   - [process wiki](https://ko.wikipedia.org/wiki/%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4)
   - memory layout
@@ -53,6 +70,7 @@ vi a.o
   - [쓰레드 정의 WIKI](https://ko.wikipedia.org/wiki/%EC%8A%A4%EB%A0%88%EB%93%9C) 
   - 스레드(thread)는 어떠한 프로그램 내에서, 특히 프로세스 내에서 실행되는 흐름의 단위를 말한다. 일반적으로 한 프로그램은 하나의 스레드를 가지고 있지만, 프로그램 환경에 따라 둘 이상의 스레드를 동시에 실행할 수 있다. 이러한 실행 방식을 멀티스레드(multithread)라고 한다.
   - ![](https://users.cs.cf.ac.uk/Dave.Marshall/C/mthread.gif)
+<!--   
 ```c
 #include <sys/types.h>
 #include <unistd.h>
@@ -90,6 +108,8 @@ void* thread_function(void* arg){
 ```shell
 gcc -o pthread_create.o pthread_create.c  -pthread
 ```
+
+-->
   - ![](https://i.stack.imgur.com/j8pL4.gif)
   - 
   ```shell
