@@ -1,9 +1,14 @@
-참고 ULR
-[Chapter 6. I/O Multiplexing: The select and poll Functions¶
-](https://notes.shichao.io/unp/ch6/)
 
 ### 목차 
+  - LINUX(x86)에서의 PROCESS와 THREAD
+  - JVM에서의 THREAD
+  - JAVA 코딩
+    - Thread
+    - ThreadPool(while), ThreadPool(wait, notify) 
+    - Future, ListenableFuture, CompletableFuture
 
+
+#LINUX(x86)에서의 PROCESS와 THREAD
 - JVM은 쓰레드를 직접 만들어 사용하지 않습니다.
   - [green threads](https://en.wikipedia.org/wiki/Green_threads)
   - native thread를 사용하기 때문에 java의 thread를 살펴보기전에 Linux를 기준으로 OS native thread를 살펴보자.
@@ -158,13 +163,15 @@ process는 thread를 가질수 있고 thread == task
 
   - ![](./images/tss.png)
 
-#### JVM
+# JVM
 - JVM Internal
   - ![](./images/JVM_Internal_Architecture.png)
   - jvm stack size 1024 KB [JVM default stack size - IBM ](https://www.ibm.com/support/knowledgecenter/SSYKE2_7.1.0/com.ibm.java.lnx.71.doc/diag/appendixes/defaults.html)
   - [jvm thread stack size config](http://xmlandmore.blogspot.com/2014/09/jdk-8-thread-stack-size-tuning.html )
 
-#### java code
+--------------------------------------
+
+# java code
 
 > 쓰레드 기본 코드
 ```java
@@ -674,3 +681,11 @@ public class CompletableFutureExample {
 
 }
 ```
+
+--------------------------------------
+
+
+
+참고 URL
+- [jvm internal](http://www.artima.com/insidejvm/ed2/jvm2.html)
+- [Chapter 6. I/O Multiplexing: The select and poll Functions¶ ](https://notes.shichao.io/unp/ch6/)
